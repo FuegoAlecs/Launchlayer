@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
+import connectDB from '../db';
 
 // Define the User schema
 const UserSchema = new mongoose.Schema({
@@ -26,13 +27,8 @@ export async function POST(req: Request) {
   try {
     const { name, email } = await req.json();
 
-    // Connect to MongoDB
-    const MONGODB_URI = process.env.MONGODB_URI;
-    if (!MONGODB_URI) {
-      throw new Error('MongoDB URI is not defined in environment variables');
-    }
-    
-    await mongoose.connect(MONGODB_URI);
+    // Connect to MongoDB using the connectDB function
+    await connectDB();
 
     const user = await User.create({
       name,
