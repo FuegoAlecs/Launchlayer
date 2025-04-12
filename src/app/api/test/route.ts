@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
+import connectDB from '../../../lib/db';
 
 export async function GET() {
   try {
@@ -13,8 +14,8 @@ export async function GET() {
       );
     }
     
-    // Connect to MongoDB
-    await mongoose.connect(MONGODB_URI);
+    // Connect to MongoDB using the connectDB function
+    await connectDB();
     
     // Check if the connection is successful
     if (mongoose.connection.readyState === 1) {
