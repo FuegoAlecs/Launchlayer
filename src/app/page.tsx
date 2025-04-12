@@ -391,23 +391,9 @@ export default function Home() {
               <h2 className="text-4xl font-bold mb-4 waitlist-heading">
                 Join the Waitlist
               </h2>
-              <div className="typing-container">
-                <motion.p
-                  key={currentPhraseIndex}
-                  className="sub-heading typing-effect text-lg font-medium"
-                  initial={{ width: "0%" }}
-                  animate={{ width: "100%" }}
-                  exit={{ width: "0%" }}
-                  transition={{
-                    duration: 2,
-                    ease: "easeInOut",
-                    type: "spring",
-                    stiffness: 50
-                  }}
-                >
-                  {phrases[currentPhraseIndex]}
-                </motion.p>
-              </div>
+              <p className="text-xl text-white/90 mb-8">
+                Helping startups launch MVPs, web & mobile apps faster and smarter.
+              </p>
             </motion.div>
 
             <motion.div
@@ -444,7 +430,7 @@ export default function Home() {
                   />
                 </div>
                 {status && (
-                  <div className={`text-center ${status.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>
+                  <div className={`text-center ${status.type === 'success' ? 'text-white' : 'text-red-400'}`}>
                     {status.message}
                   </div>
                 )}
