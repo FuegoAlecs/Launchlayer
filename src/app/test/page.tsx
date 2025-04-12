@@ -14,7 +14,14 @@ export default function TestConnection() {
   const testConnection = async () => {
     setLoading(true);
     try {
-      const response = await fetch('/api/test-connection');
+      // Try both API routes to ensure one works
+      let response;
+      try {
+        response = await fetch('/api/test');
+      } catch (e) {
+        response = await fetch('/api/test-connection');
+      }
+      
       const data = await response.json();
       setConnectionStatus(data);
     } catch (error: any) {

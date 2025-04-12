@@ -1,12 +1,38 @@
 import { NextResponse } from 'next/server';
-import connectDB from '../../../lib/db';
-import User from '../../../models/User';
+import mongoose from 'mongoose';
+
+// Define the User schema
+const UserSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'Please provide your name'],
+  },
+  email: {
+    type: String,
+    required: [true, 'Please provide your email'],
+    unique: true,
+    match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email'],
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+// Create the User model
+const User = mongoose.models.User || mongoose.model('User', UserSchema);
 
 export async function POST(req: Request) {
   try {
     const { name, email } = await req.json();
 
-    await connectDB();
+    // Connect to MongoDB
+    const MONGODB_URI = process.env.MONGODB_URI;
+    if (!MONGODB_URI) {
+      throw new Error('MongoDB URI is not defined in environment variables');
+    }
+    
+    await mongoose.connect(MONGODB_URI);
 
     const user = await User.create({
       name,

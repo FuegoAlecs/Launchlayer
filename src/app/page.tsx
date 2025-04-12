@@ -119,7 +119,14 @@ export default function Home() {
   });
 
   // Fish state
-  const [fishes, setFishes] = useState([]);
+  const [fishes, setFishes] = useState<Array<{
+    id: number;
+    top: number;
+    direction: number;
+    duration: number;
+    size: number;
+    delay: number;
+  }>>([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
